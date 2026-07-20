@@ -22,7 +22,7 @@ function Login() {
 
     try {
       const res = await axios.post(
-        "https://https://customer-repository.onrender.com/api/auth/login",
+        "https://customer-repository.onrender.com/api/auth/login",
         form
       );
 
