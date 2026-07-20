@@ -1,3 +1,19 @@
+#Description
+Customer Registry Application 
+ A lightweight, full-stack web application designed to store, manage, and track customer information efficiently. This project provides a clean user interface to handle core customer data operations through a secure and responsive architecture.
+ Key Features
+ Full CRUD Operations: Create, read, update, and delete customer profiles easily.
+ Responsive UI: 
+ Intuitive and mobile-friendly dashboard for managing data.
+ RESTful API: 
+ Secure backend services to handle data communication.
+ Database Integration:
+ Reliable and structured data storage for persistent records.
+ Tech Stack
+ Frontend: React.js / HTML5 / CSS3 / JavaScript
+ Backend: Node.js / Express.js
+ Database: MongoDB / PostgreSQL
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
