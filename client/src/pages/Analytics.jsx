@@ -44,7 +44,7 @@ function Analytics() {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "https://https://customer-repository.onrender.com/api/dashboard/stats",
+        "https://customer-repository.onrender.com/api/dashboard/stats",
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -66,7 +66,7 @@ function AdminComplaints() {
       }
 
       await axios.put(
-        `https://https://customer-repository.onrender.com/api/admin/assign/${complaintId}`,
+        `https://customer-repository.onrender.com/api/admin/assign/${complaintId}`,
         {
           agentId,
         },

@@ -35,7 +35,7 @@ function Notification() {
       const token = localStorage.getItem("token");
 
       await axios.put(
-        `https://https://customer-repository.onrender.com/api/notifications/${id}`,
+        `https://customer-repository.onrender.com/api/notifications/${id}`,
         {},
         {
           headers: {

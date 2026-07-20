@@ -135,7 +135,7 @@ function ComplaintDetails() {
       const token = localStorage.getItem("token");
 
       await axios.post(
-        "https://https://customer-repository.onrender.com/api/feedback",
+        "https://customer-repository.onrender.com/api/feedback",
         {
           complaintId: id,
           rating,

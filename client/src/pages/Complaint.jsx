@@ -24,7 +24,7 @@ function Complaint() {
       const token = localStorage.getItem("token");
 
       const res = await axios.post(
-        "https://https://customer-repository.onrender.com/api/complaints",
+        "https://customer-repository.onrender.com/api/complaints",
         form,
         {
           headers: {

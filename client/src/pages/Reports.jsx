@@ -23,7 +23,7 @@ function Reports() {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "https://https://customer-repository.onrender.com/api/reports",
+        "https://customer-repository.onrender.com/api/reports",
         {
           headers: {
             Authorization: `Bearer ${token}`,

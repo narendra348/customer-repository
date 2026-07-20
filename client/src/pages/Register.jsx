@@ -24,7 +24,7 @@ function Register() {
 
   try {
     const res = await axios.post(
-      "https://https://customer-repository.onrender.com/api/auth/register",
+      "https://customer-repository.onrender.com/api/auth/register",
       form
     );
 
