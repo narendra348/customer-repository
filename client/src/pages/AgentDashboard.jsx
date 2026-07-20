@@ -15,7 +15,7 @@ function AgentDashboard() {
       const token = localStorage.getItem("token");
 
       const response = await axios.get(
-        "http://localhost:5000/api/agent/tasks",
+        "https://https://customer-repository.onrender.com/api/agent/tasks",
         {
           headers: {
             Authorization: `Bearer ${token}`,

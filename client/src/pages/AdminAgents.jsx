@@ -16,7 +16,7 @@ function AdminAgents() {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "http://localhost:5000/api/admin/agents",
+        "https://customer-repository.onrender.com/api/admin/agents",
         {
           headers: {
             Authorization: `Bearer ${token}`,

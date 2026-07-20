@@ -39,7 +39,7 @@ function Feedback() {
       const token = localStorage.getItem("token");
 
       await axios.post(
-        "http://localhost:5000/api/feedback",
+        "https://https://customer-repository.onrender.com/api/feedback",
         {
           complaintId: id,
           rating,

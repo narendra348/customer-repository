@@ -95,7 +95,7 @@ const fetchDashboardStats = async () => {
       const token = localStorage.getItem("token");
 
       await axios.put(
-        `http://localhost:5000/api/admin/assign/${complaintId}`,
+        `https://https://customer-repository.onrender.com/api/admin/assign/${complaintId}`,
         { agentId },
         {
           headers: {
