@@ -32,7 +32,7 @@ function ComplaintDetails() {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        `http://localhost:5000/api/complaints/${id}`,
+        `https://customer-repository.onrender.com/api/complaints/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -56,7 +56,7 @@ function ComplaintDetails() {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        `http://localhost:5000/api/comments/${id}`,
+        `https://customer-repository.onrender.com/api/comments/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -79,7 +79,7 @@ function ComplaintDetails() {
       const token = localStorage.getItem("token");
 
       await axios.post(
-        "http://localhost:5000/api/comments",
+        "https://customer-repository.onrender.com/api/comments",
         {
           complaintId: id,
           message,
@@ -110,7 +110,7 @@ function ComplaintDetails() {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        `http://localhost:5000/api/feedback/${id}`,
+        `https://customer-repository.onrender.com/api/feedback/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
