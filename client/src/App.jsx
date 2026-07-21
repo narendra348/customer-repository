@@ -30,8 +30,8 @@ function App() {
       <Route path="/agent" element={<AgentDashboard />} />
       <Route path="/agent/tasks" element={<AgentTasks />} />
       <Route path="/admin/complaints" element={<AdminComplaints />} />
-      <Route path="/agent" element={<AgentDashboard />} />
-<Route path="/agent/tasks" element={<AgentTasks />} />
+      
+
 <Route path="/agent/profile" element={<Profile />} />
       <Route path="/notifications" element={<Notifications />} />
       
