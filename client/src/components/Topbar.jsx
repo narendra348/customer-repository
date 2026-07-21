@@ -15,7 +15,7 @@ function Topbar() {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "http://localhost:5000/api/notifications",
+        "https://customer-repository.onrender.com/api/notifications",
         {
           headers: {
             Authorization: `Bearer ${token}`,

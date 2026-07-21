@@ -37,7 +37,7 @@ function AgentTasks() {
       const token = localStorage.getItem("token");
 
       await axios.put(
-        `http://localhost:5000/api/agent/update/${id}`,
+        `https://customer-repository.onrender.com/api/agent/update/${id}`,
         { status },
         {
           headers: {

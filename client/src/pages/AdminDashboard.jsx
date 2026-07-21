@@ -28,7 +28,7 @@ const fetchDashboardStats = async () => {
     const token = localStorage.getItem("token");
 
     const res = await axios.get(
-      "http://localhost:5000/api/dashboard/stats",
+      "https://customer-repository.onrender.com/api/dashboard/stats",
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -50,7 +50,7 @@ const fetchDashboardStats = async () => {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "http://localhost:5000/api/admin/complaints",
+        "https://customer-repository.onrender.com/api/admin/complaints",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -72,7 +72,7 @@ const fetchDashboardStats = async () => {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "http://localhost:5000/api/admin/agents",
+        "https://customer-repository.onrender.com/api/admin/agents",
         {
           headers: {
             Authorization: `Bearer ${token}`,

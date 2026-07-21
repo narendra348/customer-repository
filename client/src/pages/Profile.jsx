@@ -56,7 +56,7 @@ function Profile() {
       const token = localStorage.getItem("token");
 
       const res = await axios.put(
-        "http://localhost:5000/api/profile",
+        "https://customer-repository.onrender.com/api/profile",
         form,
         {
           headers: {
