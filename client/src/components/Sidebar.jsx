@@ -12,7 +12,7 @@ import {
   FaCommentDots,
 } from "react-icons/fa";
 
-function Sidebar() {
+function Sidebar({ isOpen, setIsOpen }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const location = useLocation();
 
@@ -36,20 +36,26 @@ function Sidebar() {
 
   return (
     <div
-      className="sidebar"
-      style={{
-        width: "260px",
-        height: "100vh",
-        position: "fixed",
-        left: 0,
-        top: 0,
-        background: "#0F172A",
-        padding: "20px",
-        overflowY: "auto",
-        boxShadow: "0 0 25px rgba(0,0,0,.25)",
-        zIndex: 1000,
-      }}
-    >
+  className="sidebar"
+  style={{
+    width: "260px",
+    height: "100vh",
+    position: "fixed",
+    top: 0,
+    left:
+      window.innerWidth <= 768
+        ? isOpen
+          ? "0"
+          : "-260px"
+        : "0",
+    background: "#0F172A",
+    padding: "20px",
+    overflowY: "auto",
+    boxShadow: "0 0 25px rgba(0,0,0,.25)",
+    zIndex: 1000,
+    transition: "left 0.3s ease",
+  }}
+>
       <div className="text-center mb-5">
         <h2 className="text-info fw-bold">CRS</h2>
         <small className="text-light">
@@ -61,29 +67,38 @@ function Sidebar() {
       {user?.role === "admin" && (
         <>
           <Link
-            to="/admin"
-            style={{
-              ...menuStyle,
-              ...(location.pathname === "/admin" ? activeStyle : {}),
-            }}
-          >
+  to="/admin"
+  onClick={() => {
+    if (window.innerWidth <= 768) setIsOpen(false);
+  }}
+  style={{
+    ...menuStyle,
+    ...(location.pathname === "/admin" ? activeStyle : {}),
+  }}
+>
             <FaHome /> Dashboard
           </Link>
 
           <Link
-            to="/admin/complaints"
-            style={{
-              ...menuStyle,
-              ...(location.pathname === "/admin/complaints"
-                ? activeStyle
-                : {}),
-            }}
-          >
+  to="/admin/complaints"
+  onClick={() => {
+    if (window.innerWidth <= 768) setIsOpen(false);
+  }}
+  style={{
+    ...menuStyle,
+    ...(location.pathname === "/admin/complaints"
+      ? activeStyle
+      : {}),
+  }}
+>
             <FaClipboardList /> Complaints
           </Link>
 
           <Link
             to="/admin/agents"
+            onClick={() => {
+    if (window.innerWidth <= 768) setIsOpen(false);
+  }}
             style={{
               ...menuStyle,
               ...(location.pathname === "/admin/agents"
@@ -96,6 +111,9 @@ function Sidebar() {
 
           <Link
             to="/reports"
+            onClick={() => {
+    if (window.innerWidth <= 768) setIsOpen(false);
+  }}
             style={{
               ...menuStyle,
               ...(location.pathname === "/reports"
@@ -108,6 +126,9 @@ function Sidebar() {
 
           <Link
             to="/analytics"
+            onClick={() => {
+    if (window.innerWidth <= 768) setIsOpen(false);
+  }}
             style={{
               ...menuStyle,
               ...(location.pathname === "/analytics"
@@ -125,6 +146,9 @@ function Sidebar() {
         <>
           <Link
             to="/agent"
+            onClick={() => {
+    if (window.innerWidth <= 768) setIsOpen(false);
+  }}
             style={{
               ...menuStyle,
               ...(location.pathname === "/agent"
@@ -137,6 +161,9 @@ function Sidebar() {
 
           <Link
             to="/agent/tasks"
+            onClick={() => {
+    if (window.innerWidth <= 768) setIsOpen(false);
+  }}
             style={{
               ...menuStyle,
               ...(location.pathname === "/agent/tasks"
@@ -149,6 +176,9 @@ function Sidebar() {
 
           <Link
             to="/notifications"
+            onClick={() => {
+    if (window.innerWidth <= 768) setIsOpen(false);
+  }}
             style={{
               ...menuStyle,
               ...(location.pathname === "/notifications"
@@ -166,6 +196,9 @@ function Sidebar() {
         <>
           <Link
             to="/dashboard"
+            onClick={() => {
+    if (window.innerWidth <= 768) setIsOpen(false);
+  }}
             style={{
               ...menuStyle,
               ...(location.pathname === "/dashboard"
@@ -178,6 +211,9 @@ function Sidebar() {
 
           <Link
             to="/complaint"
+            onClick={() => {
+    if (window.innerWidth <= 768) setIsOpen(false);
+  }}
             style={{
               ...menuStyle,
               ...(location.pathname === "/complaint"
@@ -190,6 +226,9 @@ function Sidebar() {
 
           <Link
             to="/mycomplaints"
+            onClick={() => {
+    if (window.innerWidth <= 768) setIsOpen(false);
+  }}
             style={{
               ...menuStyle,
               ...(location.pathname === "/mycomplaints"
@@ -202,6 +241,9 @@ function Sidebar() {
 
           <Link
             to="/agent/profile"
+            onClick={() => {
+    if (window.innerWidth <= 768) setIsOpen(false);
+  }}
             style={{
               ...menuStyle,
               ...(location.pathname === "/agent/profile"
@@ -214,6 +256,9 @@ function Sidebar() {
 
           <Link
             to="/notifications"
+            onClick={() => {
+    if (window.innerWidth <= 768) setIsOpen(false);
+  }}
             style={{
               ...menuStyle,
               ...(location.pathname === "/notifications"
@@ -228,6 +273,9 @@ function Sidebar() {
 
       <Link
         to="/feedback"
+        onClick={() => {
+    if (window.innerWidth <= 768) setIsOpen(false);
+  }}
         style={{
           ...menuStyle,
           ...(location.pathname === "/feedback"

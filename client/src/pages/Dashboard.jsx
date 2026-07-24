@@ -12,7 +12,7 @@ import {
 
 function Dashboard() {
   const user = JSON.parse(localStorage.getItem("user"));
-
+const [isOpen, setIsOpen] = useState(false);
   const [stats, setStats] = useState({
     total: 0,
     pending: 0,
@@ -45,18 +45,26 @@ function Dashboard() {
 
   return (
     <>
-      <Sidebar />
-      <Topbar />
+      <Sidebar
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+/>
+
+<Topbar
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+/>
 
       <div
-        className="main-content"
-        style={{
-          marginLeft: "250px",
-          padding: "30px",
-          background: "#F4F7FC",
-          minHeight: "100vh",
-        }}
-      >
+  className="main-content"
+  style={{
+    marginLeft: window.innerWidth <= 768 ? "0" : "260px",
+    marginTop: "75px",
+    width: window.innerWidth <= 768 ? "100%" : "calc(100% - 260px)",
+    padding: "20px",
+    transition: "0.3s",
+  }}
+>
         <div className="mb-4">
           <h2 className="fw-bold display-6">
             Welcome Back, {user?.name} 👋

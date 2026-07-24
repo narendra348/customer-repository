@@ -26,3 +26,29 @@ body {
     padding: 15px;
   }
 }
+@media (max-width:768px){
+
+.main-content{
+    margin-left:0 !important;
+    width:100% !important;
+    padding:15px !important;
+}
+
+.sidebar{
+    width:260px;
+    left:-260px;
+    transition:.3s;
+}
+
+.sidebar.show{
+    left:0;
+}
+
+.card{
+    margin-bottom:15px;
+}
+
+table{
+    min-width:700px;
+}
+}

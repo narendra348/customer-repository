@@ -15,6 +15,7 @@ import {
 function AdminDashboard() {
   const [complaints, setComplaints] = useState([]);
   const [agents, setAgents] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [stats, setStats] = useState({
     totalComplaints: 0,
@@ -112,16 +113,24 @@ function AdminDashboard() {
 
   return (
     <>
-      <Sidebar />
-      <Topbar />
+      <Sidebar
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+/>
+
+<Topbar
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+/>
 
       <div
   className="main-content"
   style={{
-    marginLeft: "280px",
+    marginLeft: window.innerWidth <= 768 ? "0" : "280px",
     marginTop: "90px",
-    paddingRight: "20px",
-    width: "calc(100% - 300px)",
+    padding: window.innerWidth <= 768 ? "15px" : "25px",
+    width: window.innerWidth <= 768 ? "100%" : "calc(100% - 280px)",
+    transition: "0.3s",
   }}
 >
 
@@ -318,13 +327,7 @@ function AdminDashboard() {
 
           <div className="card-body">
 
-            <div
-  className="table-responsive"
-  style={{
-    maxWidth: "1050px",
-    margin: "0 auto",
-  }}
->
+            <div className="table-responsive">
 
               <table className="table table-hover align-middle">
 

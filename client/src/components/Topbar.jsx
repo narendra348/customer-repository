@@ -7,7 +7,7 @@ import {
   FaBars,
 } from "react-icons/fa";
 
-function Topbar() {
+function Topbar({ isOpen, setIsOpen }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const [count, setCount] = useState(0);
 
@@ -47,15 +47,14 @@ function Topbar() {
       : "Customer Dashboard";
 
   return (
-    <div
-      className="d-flex justify-content-between align-items-center px-4 py-3 bg-white shadow-sm"
+   <div
+  className="topbar d-flex justify-content-between align-items-center px-4 py-3 bg-white shadow-sm"
       style={{
-        marginLeft: "260px",
-        minHeight: "75px",
-        position: "sticky",
-        top: 0,
-        zIndex: 999,
-      }}
+  minHeight: "75px",
+  position: "sticky",
+  top: 0,
+  zIndex: 999,
+}}
     >
       {/* Left */}
       <div className="d-flex align-items-center">
