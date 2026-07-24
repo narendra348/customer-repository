@@ -51,4 +51,10 @@ body {
 table{
     min-width:700px;
 }
+.topbar{
+    margin-left:0 !important;
+    width:100% !important;
+    padding:15px !important;
+}
+
 }

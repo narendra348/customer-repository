@@ -50,6 +50,8 @@ function Topbar({ isOpen, setIsOpen }) {
    <div
   className="topbar d-flex justify-content-between align-items-center px-4 py-3 bg-white shadow-sm"
       style={{
+  marginLeft: window.innerWidth > 768 ? "260px" : "0",
+  width: window.innerWidth > 768 ? "calc(100% - 260px)" : "100%",
   minHeight: "75px",
   position: "sticky",
   top: 0,
@@ -60,10 +62,11 @@ function Topbar({ isOpen, setIsOpen }) {
       <div className="d-flex align-items-center">
 
         <button
-          className="btn btn-light me-3 d-lg-none"
-        >
-          <FaBars />
-        </button>
+  className="btn btn-light me-3 d-lg-none"
+  onClick={() => setIsOpen(!isOpen)}
+>
+  <FaBars />
+</button>
 
         <div>
           <h4 className="fw-bold mb-0">

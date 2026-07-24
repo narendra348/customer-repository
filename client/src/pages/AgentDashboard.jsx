@@ -13,6 +13,7 @@ function AgentDashboard() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [complaints, setComplaints] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     fetchComplaints();
@@ -55,18 +56,27 @@ function AgentDashboard() {
 
   return (
     <>
-      <Sidebar />
-      <Topbar />
+    <Sidebar
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+/>
+
+<Topbar
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+/>
 
       <div
-        className="main-content"
-        style={{
-          marginLeft: "250px",
-          padding: "30px",
-          background: "#F4F7FC",
-          minHeight: "100vh",
-        }}
-      >
+  className="main-content"
+  style={{
+    marginLeft: window.innerWidth > 768 ? "260px" : "0",
+    marginTop: "80px",
+    padding: window.innerWidth > 768 ? "30px" : "15px",
+    background: "#F4F7FC",
+    minHeight: "100vh",
+    width: window.innerWidth > 768 ? "calc(100% - 260px)" : "100%",
+  }}
+>
         {/* Header */}
 
         <div className="mb-4">
