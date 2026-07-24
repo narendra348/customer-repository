@@ -1,20 +1,28 @@
-import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Sidebar from "../components/Sidebar";
+import Topbar from "../components/Topbar";
+
+import {
+  FaClipboardList,
+  FaClock,
+  FaCheckCircle,
+} from "react-icons/fa";
 
 function AgentDashboard() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const [complaints, setComplaints] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    getComplaints();
+    fetchComplaints();
   }, []);
 
-  const getComplaints = async () => {
+  const fetchComplaints = async () => {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await axios.get(
+      const res = await axios.get(
         "https://customer-repository.onrender.com/api/agent/tasks",
         {
           headers: {
@@ -23,16 +31,14 @@ function AgentDashboard() {
         }
       );
 
-      setComplaints(response.data.complaints);
-    } catch (error) {
-      console.log(error);
+      setComplaints(res.data.complaints);
+    } catch (err) {
+      console.log(err);
 
-      if (error.response?.status === 401) {
+      if (err.response?.status === 401) {
         alert("Session Expired. Please Login Again.");
-
         localStorage.clear();
-
-        navigate("/login");
+        window.location.href = "/login";
       }
     }
   };
@@ -47,123 +53,152 @@ function AgentDashboard() {
     (item) => item.status === "Resolved"
   ).length;
 
-  const logout = () => {
-    localStorage.clear();
-    navigate("/login");
-  };
-
   return (
-    <div className="d-flex">
-
-      {/* Sidebar */}
+    <>
+      <Sidebar />
+      <Topbar />
 
       <div
-        className="bg-dark text-white p-4"
+        className="main-content"
         style={{
-          width: "250px",
+          marginLeft: "250px",
+          padding: "30px",
+          background: "#F4F7FC",
           minHeight: "100vh",
         }}
       >
-        <h2 className="text-center mb-5">
-          Agent Panel
-        </h2>
+        {/* Header */}
 
-        <ul className="nav flex-column">
+        <div className="mb-4">
+          <h2 className="fw-bold display-6">
+            Welcome Back, {user?.name} 👋
+          </h2>
 
-          <li className="mb-3">
-            <Link
-              to="/agent"
-              className="nav-link text-white"
-            >
-              🏠 Dashboard
-            </Link>
-          </li>
-
-          <li className="mb-3">
-            <Link
-              to="/agent/tasks"
-              className="nav-link text-white"
-            >
-              📋 Assigned Complaints
-            </Link>
-          </li>
-
-          <li className="mb-3">
-            <Link
-              to="/agent/profile"
-              className="nav-link text-white"
-            >
-              👤 Profile
-            </Link>
-          </li>
-
-          <li className="mt-5">
-            <button
-              className="btn btn-danger w-100"
-              onClick={logout}
-            >
-              Logout
-            </button>
-          </li>
-
-        </ul>
-      </div>
-
-      {/* Main Content */}
-
-      <div
-        className="flex-grow-1 p-5"
-        style={{
-          background: "#f5f7fb",
-          minHeight: "100vh",
-        }}
-      >
-        <h1 className="fw-bold">
-          Welcome Agent 👋
-        </h1>
-
-        <p className="text-muted">
-          Manage and resolve customer complaints
-        </p>
+          <p className="text-secondary">
+            Manage and resolve customer complaints
+          </p>
+        </div>
 
         {/* Dashboard Cards */}
 
-        <div className="row mt-4">
+        <div className="row g-4">
 
-          <div className="col-md-4">
-            <div className="card shadow border-0 rounded-4 p-4">
-              <h2 className="text-primary">{total}</h2>
-              <p>Total Assigned</p>
+          {/* Total Assigned */}
+
+          <div className="col-lg-4 col-md-6">
+            <div
+              className="card border-0 shadow-lg rounded-4 p-4"
+              style={{
+                height: "180px",
+                background:
+                  "linear-gradient(135deg,#2563EB,#4F46E5)",
+                color: "white",
+              }}
+            >
+              <div
+                style={{
+                  width: "70px",
+                  height: "70px",
+                  borderRadius: "18px",
+                  background: "rgba(255,255,255,.20)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <FaClipboardList size={32} />
+              </div>
+
+              <h1 className="fw-bold mt-3">
+                {total}
+              </h1>
+
+              <h5>Total Assigned</h5>
+            </div>
+          </div>
+                    {/* Pending */}
+
+          <div className="col-lg-4 col-md-6">
+            <div
+              className="card border-0 shadow-lg rounded-4 p-4"
+              style={{
+                height: "180px",
+                background:
+                  "linear-gradient(135deg,#F59E0B,#F97316)",
+                color: "white",
+              }}
+            >
+              <div
+                style={{
+                  width: "70px",
+                  height: "70px",
+                  borderRadius: "18px",
+                  background: "rgba(255,255,255,.20)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <FaClock size={32} />
+              </div>
+
+              <h1 className="fw-bold mt-3">
+                {pending}
+              </h1>
+
+              <h5>Pending</h5>
             </div>
           </div>
 
-          <div className="col-md-4">
-            <div className="card shadow border-0 rounded-4 p-4">
-              <h2 className="text-warning">{pending}</h2>
-              <p>Pending</p>
-            </div>
-          </div>
+          {/* Resolved */}
 
-          <div className="col-md-4">
-            <div className="card shadow border-0 rounded-4 p-4">
-              <h2 className="text-success">{resolved}</h2>
-              <p>Resolved</p>
+          <div className="col-lg-4 col-md-6">
+            <div
+              className="card border-0 shadow-lg rounded-4 p-4"
+              style={{
+                height: "180px",
+                background:
+                  "linear-gradient(135deg,#10B981,#14B8A6)",
+                color: "white",
+              }}
+            >
+              <div
+                style={{
+                  width: "70px",
+                  height: "70px",
+                  borderRadius: "18px",
+                  background: "rgba(255,255,255,.20)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <FaCheckCircle size={32} />
+              </div>
+
+              <h1 className="fw-bold mt-3">
+                {resolved}
+              </h1>
+
+              <h5>Resolved</h5>
             </div>
           </div>
 
         </div>
 
-        {/* Complaint Table */}
+        {/* Recent Complaints */}
 
-        <div className="card shadow border-0 rounded-4 mt-5">
+        <div className="card border-0 shadow-lg rounded-4 mt-5">
 
-          <div className="card-header bg-white">
-            <h4>Recent Complaints</h4>
+          <div className="card-header bg-white border-0 py-4">
+            <h4 className="fw-bold mb-0">
+              Assigned Complaints
+            </h4>
           </div>
 
           <div className="table-responsive">
 
-            <table className="table table-hover">
+            <table className="table table-hover align-middle mb-0">
 
               <thead className="table-light">
 
@@ -177,8 +212,7 @@ function AgentDashboard() {
               </thead>
 
               <tbody>
-
-                {complaints.length > 0 ? (
+                                {complaints.length > 0 ? (
 
                   complaints.slice(0, 5).map((item) => (
 
@@ -193,13 +227,13 @@ function AgentDashboard() {
                       <td>
 
                         <span
-                          className={
-                            item.status === "Resolved"
-                              ? "badge bg-success"
-                              : item.status === "Pending"
-                              ? "badge bg-warning text-dark"
-                              : "badge bg-primary"
-                          }
+                          className={`badge rounded-pill px-3 py-2 ${
+                            item.status === "Pending"
+                              ? "bg-warning text-dark"
+                              : item.status === "Resolved"
+                              ? "bg-success"
+                              : "bg-primary"
+                          }`}
                         >
                           {item.status}
                         </span>
@@ -213,12 +247,14 @@ function AgentDashboard() {
                 ) : (
 
                   <tr>
+
                     <td
                       colSpan="4"
-                      className="text-center text-danger"
+                      className="text-center py-5 text-muted"
                     >
                       No complaints assigned.
                     </td>
+
                   </tr>
 
                 )}
@@ -233,7 +269,7 @@ function AgentDashboard() {
 
       </div>
 
-    </div>
+    </>
   );
 }
 

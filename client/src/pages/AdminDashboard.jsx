@@ -3,50 +3,55 @@ import axios from "axios";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 
-function AdminDashboard() {
+import {
+  FaClipboardList,
+  FaClock,
+  FaSpinner,
+  FaCheckCircle,
+  FaUsers,
+  FaUserTie,
+} from "react-icons/fa";
 
+function AdminDashboard() {
   const [complaints, setComplaints] = useState([]);
   const [agents, setAgents] = useState([]);
 
   const [stats, setStats] = useState({
-  totalComplaints: 0,
-  pending: 0,
-  inProgress: 0,
-  resolved: 0,
-  customers: 0,
-  agents: 0,
-});
+    totalComplaints: 0,
+    pending: 0,
+    inProgress: 0,
+    resolved: 0,
+    customers: 0,
+    agents: 0,
+  });
 
   useEffect(() => {
-  fetchDashboardStats();
-  fetchComplaints();
-  fetchAgents();
-}, []);
+    fetchDashboardStats();
+    fetchComplaints();
+    fetchAgents();
+  }, []);
 
-const fetchDashboardStats = async () => {
-  try {
-    const token = localStorage.getItem("token");
+  const fetchDashboardStats = async () => {
+    try {
+      const token = localStorage.getItem("token");
 
-    const res = await axios.get(
-      "https://customer-repository.onrender.com/api/dashboard/stats",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+      const res = await axios.get(
+        "https://customer-repository.onrender.com/api/dashboard/stats",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    setStats(res.data.stats);
+      setStats(res.data.stats);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-  // Get all complaints
   const fetchComplaints = async () => {
     try {
-
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
@@ -59,16 +64,13 @@ const fetchDashboardStats = async () => {
       );
 
       setComplaints(res.data.complaints);
-
     } catch (err) {
       console.log(err);
     }
   };
 
-  // Get all agents
   const fetchAgents = async () => {
     try {
-
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
@@ -81,17 +83,13 @@ const fetchDashboardStats = async () => {
       );
 
       setAgents(res.data.agents);
-
     } catch (err) {
       console.log(err);
     }
   };
 
-  // Assign complaint
   const assignComplaint = async (complaintId, agentId) => {
-
     try {
-
       const token = localStorage.getItem("token");
 
       await axios.put(
@@ -107,13 +105,9 @@ const fetchDashboardStats = async () => {
       alert("Complaint Assigned Successfully");
 
       fetchComplaints();
-
     } catch (err) {
-
       alert(err.response?.data?.message);
-
     }
-
   };
 
   return (
@@ -122,145 +116,343 @@ const fetchDashboardStats = async () => {
       <Topbar />
 
       <div
-        style={{
-          marginLeft: "250px",
-          padding: "30px",
-          background: "#F4F7FC",
-          minHeight: "100vh",
-        }}
-      >
+  className="main-content"
+  style={{
+    marginLeft: "280px",
+    marginTop: "90px",
+    paddingRight: "20px",
+    width: "calc(100% - 300px)",
+  }}
+>
 
-        <h2 className="fw-bold mb-4">
+        <h3 className="mt-2 mb-1 fw-bold">
           Admin Dashboard
-        </h2>
-        <div className="row mb-4">
+        </h3>
 
-  <div className="col-md-4 mb-3">
-    <div className="card shadow border-0 bg-primary text-white">
-      <div className="card-body text-center">
-        <h5>Total Complaints</h5>
-        <h2>{stats.totalComplaints}</h2>
-      </div>
-    </div>
-  </div>
+        <p className="text-muted mb-4">
+          Monitor complaints, customers and agents.
+        </p>
 
-  <div className="col-md-4 mb-3">
-    <div className="card shadow border-0 bg-warning text-white">
-      <div className="card-body text-center">
-        <h5>Pending</h5>
-        <h2>{stats.pending}</h2>
-      </div>
-    </div>
-  </div>
+        <div className="row g-2 mb-3 justify-content-center">
+          {/* Total */}
 
-  <div className="col-md-4 mb-3">
-    <div className="card shadow border-0 bg-info text-white">
-      <div className="card-body text-center">
-        <h5>In Progress</h5>
-        <h2>{stats.inProgress}</h2>
-      </div>
-    </div>
-  </div>
+          <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-3">
+            <div
+              className="card border-0 shadow-lg h-100"
+              style={{
+                borderRadius: "20px",
+                background:
+                  "linear-gradient(135deg,#2563EB,#3B82F6)",
+                color: "#fff",
+              }}
+            >
+              <div className="card-body text-center py-3">
 
-  <div className="col-md-4 mb-3">
-    <div className="card shadow border-0 bg-success text-white">
-      <div className="card-body text-center">
-        <h5>Resolved</h5>
-        <h2>{stats.resolved}</h2>
-      </div>
-    </div>
-  </div>
+                <FaClipboardList size={26} />
 
-  <div className="col-md-4 mb-3">
-    <div className="card shadow border-0 bg-dark text-white">
-      <div className="card-body text-center">
-        <h5>Customers</h5>
-        <h2>{stats.customers}</h2>
-      </div>
-    </div>
-  </div>
+                <h3 className="mt-2 mb-1 fw-bold">
+                  {stats.totalComplaints}
+                </h3>
 
-  <div className="col-md-4 mb-3">
-    <div className="card shadow border-0 bg-secondary text-white">
-      <div className="card-body text-center">
-        <h5>Agents</h5>
-        <h2>{stats.agents}</h2>
-      </div>
-    </div>
-  </div>
+                <small>Total Complaints</small>
 
-</div>
-        <div className="card shadow border-0">
+              </div>
+            </div>
+
+          </div>
+
+          {/* Pending */}
+
+          <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-3">
+
+            <div
+              className="card border-0 shadow-lg h-100"
+              style={{
+                borderRadius: "20px",
+                background:
+                  "linear-gradient(135deg,#F59E0B,#FBBF24)",
+                color: "#fff",
+              }}
+            >
+              <div className="card-body text-center py-3">
+
+                <FaClock size={26} />
+
+                <h3 className="mt-2 mb-1 fw-bold">
+                  {stats.pending}
+                </h3>
+
+                <small>Pending</small>
+
+              </div>
+            </div>
+
+          </div>
+
+          {/* In Progress */}
+
+          <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-3">
+
+            <div
+              className="card border-0 shadow-lg h-100"
+              style={{
+                borderRadius: "20px",
+                background:
+                  "linear-gradient(135deg,#06B6D4,#0EA5E9)",
+                color: "#fff",
+              }}
+            >
+              <div className="card-body text-center py-3">
+
+                <FaSpinner size={26} />
+
+                <h3 className="mt-2 mb-1 fw-bold">
+                  {stats.inProgress}
+                </h3>
+
+                <small>In Progress</small>
+
+              </div>
+            </div>
+
+          </div>
+
+          {/* Resolved */}
+
+          <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-3">
+
+            <div
+              className="card border-0 shadow-lg h-100"
+              style={{
+                borderRadius: "20px",
+                background:
+                  "linear-gradient(135deg,#10B981,#34D399)",
+                color: "#fff",
+              }}
+            >
+              <div className="card-body text-center py-3">
+
+                <FaCheckCircle size={26} />
+
+                <h3 className="mt-2 mb-1 fw-bold">
+                  {stats.resolved}
+                </h3>
+
+                <small>Resolved</small>
+
+              </div>
+            </div>
+
+          </div>
+
+          {/* Customers */}
+
+          <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-3">
+
+            <div
+              className="card border-0 shadow-lg h-100"
+              style={{
+                borderRadius: "20px",
+                background:
+                  "linear-gradient(135deg,#7C3AED,#9333EA)",
+                color: "#fff",
+              }}
+            >
+              <div className="card-body text-center py-3">
+
+                <FaUsers size={26} />
+
+                <h3 className="mt-2 mb-1 fw-bold">
+                  {stats.customers}
+                </h3>
+
+                <small>Customers</small>
+
+              </div>
+            </div>
+
+          </div>
+
+          {/* Agents */}
+
+          <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-3">
+
+            <div
+              className="card border-0 shadow-lg h-100"
+              style={{
+                borderRadius: "20px",
+                background:
+                  "linear-gradient(135deg,#374151,#4B5563)",
+                color: "#fff",
+              }}
+            >
+              <div className="card-body text-center py-3">
+
+                <FaUserTie size={26} />
+
+                <h3 className="mt-2 mb-1 fw-bold">
+                  {stats.agents}
+                </h3>
+
+                <small>Agents</small>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+                {/* Complaint Management Table */}
+
+        <div
+          className="card border-0 shadow-lg"
+          style={{
+            borderRadius: "20px",
+          }}
+        >
+          <div className="card-header bg-white border-0 py-4">
+            <h4 className="fw-bold mb-0">
+              Complaint Management
+            </h4>
+          </div>
 
           <div className="card-body">
 
-            <table className="table table-hover">
+            <div
+  className="table-responsive"
+  style={{
+    maxWidth: "1050px",
+    margin: "0 auto",
+  }}
+>
 
-              <thead>
+              <table className="table table-hover align-middle">
 
-                <tr>
-                  <th>Complaint ID</th>
-                  <th>Customer</th>
-                  <th>Complaint</th>
-                  <th>Status</th>
-                  <th>Assign Agent</th>
-                  
-                </tr>
+                <thead className="table-light">
 
-              </thead>
+                  <tr>
 
-              <tbody>
+                    <th>ID</th>
 
-                {complaints.map((item) => (
+                    <th>Customer</th>
 
-                  <tr key={item._id}>
+                    <th>Complaint</th>
 
-                        <td>{item._id}</td>
+                    <th>Status</th>
 
-                    <td>{item.customer.name}</td>
-
-                    <td>{item.title}</td>
-
-                    <td>{item.status}</td>
-
-                    <td>
-
-                      <select
-                        className="form-select"
-                        onChange={(e) =>
-                          assignComplaint(item._id, e.target.value)
-                        }
-                      >
-                        <option>Select Agent</option>
-
-                        {agents.map((agent) => (
-                          <option
-                            key={agent._id}
-                            value={agent._id}
-                          >
-                            {agent.name}
-                          </option>
-                        ))}
-
-                      </select>
-
-                    </td>
+                    <th>Assign Agent</th>
 
                   </tr>
 
-                ))}
+                </thead>
 
-              </tbody>
+                <tbody>
 
-            </table>
+                  {complaints.length === 0 ? (
+
+                    <tr>
+
+                      <td
+                        colSpan="5"
+                        className="text-center py-5 text-muted"
+                      >
+                        No complaints available
+                      </td>
+
+                    </tr>
+
+                  ) : (
+
+                    complaints.map((item) => (
+
+                      <tr key={item._id}>
+
+                        <td>
+                          <span className="fw-semibold text-primary">
+                            #{item._id.slice(-6)}
+                          </span>
+                        </td>
+
+                        <td>
+                          <div className="fw-semibold">
+                            {item.customer?.name}
+                          </div>
+                        </td>
+
+                        <td>
+                          {item.title}
+                        </td>
+
+                        <td>
+
+                          <span
+                            className={`badge rounded-pill px-3 py-2 ${
+                              item.status === "Pending"
+                                ? "bg-warning text-dark"
+                                : item.status === "Resolved"
+                                ? "bg-success"
+                                : "bg-info"
+                            }`}
+                          >
+                            {item.status}
+                          </span>
+
+                        </td>
+
+                        <td style={{ width: "180px" }}>
+
+                          <select
+                            className="form-select"
+                            defaultValue=""
+                            onChange={(e) =>
+                              assignComplaint(
+                                item._id,
+                                e.target.value
+                              )
+                            }
+                          >
+
+                            <option value="">
+                              Select Agent
+                            </option>
+
+                            {agents.map((agent) => (
+
+                              <option
+                                key={agent._id}
+                                value={agent._id}
+                              >
+                                {agent.name}
+                              </option>
+
+                            ))}
+
+                          </select>
+
+                        </td>
+
+                      </tr>
+
+                    ))
+
+                  )}
+
+                </tbody>
+
+              </table>
+
+            </div>
 
           </div>
 
         </div>
 
       </div>
+
     </>
+
   );
+
 }
 
 export default AdminDashboard;

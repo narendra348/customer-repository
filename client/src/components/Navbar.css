@@ -1,29 +1,67 @@
-.navbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:18px 60px;
-    background:"#111827",;
-    color:rgb(90, 71, 235);
+.custom-navbar{
+
+background:rgba(15,23,42,.92);
+
+backdrop-filter:blur(10px);
+
+padding:14px 0;
+
+box-shadow:0 10px 30px rgba(0,0,0,.15);
+
 }
 
-.logo{
-    font-size:28px;
-    font-weight:bold;
+.custom-navbar .navbar-brand{
+
+color:white;
+
+letter-spacing:1px;
+
 }
 
-.nav-links{
-    display:flex;
-    gap:25px;
+.custom-navbar .nav-link{
+
+color:#CBD5E1 !important;
+
+margin:0 12px;
+
+font-weight:500;
+
+transition:.3s;
+
 }
 
-.nav-links a{
-    color:rgb(5, 13, 127);
-    text-decoration:none;
-    font-size:18px;
-    transition:.3s;
+.custom-navbar .nav-link:hover{
+
+color:#38BDF8 !important;
+
 }
 
-.nav-links a:hover{
-    color:#1647ce;
+.custom-navbar .btn{
+
+font-weight:600;
+
+}
+
+@media(max-width:992px){
+
+.custom-navbar{
+
+padding:10px;
+
+}
+
+.navbar-nav{
+
+margin:20px 0;
+
+text-align:center;
+
+}
+
+.custom-navbar .btn{
+
+width:100%;
+
+}
+
 }

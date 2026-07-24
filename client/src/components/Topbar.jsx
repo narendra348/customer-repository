@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { FaBell, FaUserCircle } from "react-icons/fa";
+import {
+  FaBell,
+  FaUserCircle,
+  FaSearch,
+  FaBars,
+} from "react-icons/fa";
 
 function Topbar() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -24,36 +29,89 @@ function Topbar() {
       );
 
       const unread = res.data.notifications.filter(
-        (item) => item.read === false
+        (item) => !item.read
       );
 
       setCount(unread.length);
+
     } catch (err) {
       console.log(err);
     }
   };
 
+  const title =
+    user?.role === "admin"
+      ? "Admin Dashboard"
+      : user?.role === "agent"
+      ? "Agent Dashboard"
+      : "Customer Dashboard";
+
   return (
     <div
-      className="d-flex justify-content-between align-items-center bg-white shadow-sm px-4"
+      className="d-flex justify-content-between align-items-center px-4 py-3 bg-white shadow-sm"
       style={{
-        height: "70px",
-        marginLeft: "250px",
+        marginLeft: "260px",
+        minHeight: "75px",
+        position: "sticky",
+        top: 0,
+        zIndex: 999,
       }}
     >
-      <h3 className="fw-bold">
-        {user?.role === "admin"
-          ? "Admin Dashboard"
-          : user?.role === "agent"
-          ? "Agent Dashboard"
-          : "Customer Dashboard"}
-      </h3>
-
+      {/* Left */}
       <div className="d-flex align-items-center">
 
-        <div className="position-relative me-4">
+        <button
+          className="btn btn-light me-3 d-lg-none"
+        >
+          <FaBars />
+        </button>
 
-          <FaBell size={24} />
+        <div>
+          <h4 className="fw-bold mb-0">
+            {title}
+          </h4>
+
+          <small className="text-muted">
+            Welcome back, {user?.name}
+          </small>
+        </div>
+
+      </div>
+
+      {/* Center */}
+      <div
+        className="d-none d-md-flex align-items-center"
+        style={{
+          width: "350px",
+        }}
+      >
+        <div className="input-group">
+
+          <span className="input-group-text bg-white">
+            <FaSearch />
+          </span>
+
+          <input
+            className="form-control"
+            placeholder="Search..."
+          />
+
+        </div>
+      </div>
+
+      {/* Right */}
+      <div className="d-flex align-items-center">
+
+        <div
+          className="position-relative me-4"
+          style={{
+            cursor: "pointer",
+          }}
+        >
+          <FaBell
+            size={22}
+            color="#2563EB"
+          />
 
           {count > 0 && (
             <span
@@ -62,12 +120,24 @@ function Topbar() {
               {count}
             </span>
           )}
-
         </div>
 
-        <FaUserCircle size={35} className="me-2" />
+        <FaUserCircle
+          size={42}
+          color="#2563EB"
+        />
 
-        <span>{user?.name}</span>
+        <div className="ms-2 d-none d-md-block">
+
+          <div className="fw-bold">
+            {user?.name}
+          </div>
+
+          <small className="text-muted text-capitalize">
+            {user?.role}
+          </small>
+
+        </div>
 
       </div>
     </div>

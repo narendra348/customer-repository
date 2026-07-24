@@ -3,39 +3,44 @@ import axios from "axios";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 import { Link } from "react-router-dom";
+import {
+  FaSearch,
+  FaEye,
+  FaClipboardList,
+  FaClock,
+  FaCheckCircle,
+} from "react-icons/fa";
 
 function MyComplaints() {
-
   const [complaints, setComplaints] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     fetchComplaints();
   }, []);
 
   const fetchComplaints = async () => {
-
     try {
-
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
         "https://customer-repository.onrender.com/api/complaints",
         {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
       setComplaints(res.data.complaints);
-
     } catch (err) {
-
       alert(err.response?.data?.message);
-
     }
-
   };
+
+  const filteredComplaints = complaints.filter((item) =>
+    item.title.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <>
@@ -43,81 +48,260 @@ function MyComplaints() {
       <Topbar />
 
       <div
+  className="main-content"
+  style={{
+    marginLeft: "260px",
+    width: "calc(100% - 260px)",
+    padding: "30px",
+    minHeight: "100vh",
+  }}
+>
+
+        {/* Header */}
+
+        <div className="d-flex justify-content-between align-items-center flex-wrap mb-4">
+
+          <div>
+            <h2 className="fw-bold">
+              My Complaints
+            </h2>
+
+            <p className="text-muted">
+              Track all your submitted complaints.
+            </p>
+          </div>
+
+          <div
+            className="input-group shadow"
+            style={{
+              maxWidth: "340px",
+              borderRadius: "30px",
+              overflow: "hidden",
+            }}
+          >
+            <span className="input-group-text bg-white border-0">
+              <FaSearch />
+            </span>
+
+            <input
+              className="form-control border-0"
+              placeholder="Search complaint..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+
+        </div>
+{/* Summary Cards */}
+
+<div className="row g-4 mb-5">
+
+  {/* Total Complaints */}
+  <div className="col-lg-4 col-md-6">
+    <div
+      className="card border-0 shadow-lg rounded-4 p-4"
+      style={{
+        height: "180px",
+        background: "linear-gradient(135deg,#2563EB,#4F46E5)",
+        color: "white",
+      }}
+    >
+      <div
         style={{
-          marginLeft: "250px",
-          padding: "30px",
-          background: "#F5F7FB",
-          minHeight: "100vh"
+          width: "70px",
+          height: "70px",
+          borderRadius: "18px",
+          background: "rgba(255,255,255,.20)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
+        <FaClipboardList size={32} />
+      </div>
 
-        <h2 className="fw-bold mb-4">
-          My Complaints
-        </h2>
+      <h1 className="fw-bold mt-3">
+        {complaints.length}
+      </h1>
 
-        <div className="card shadow border-0">
+      <h5>Total Complaints</h5>
+    </div>
+  </div>
 
-          <div className="card-body">
+  {/* Pending */}
+  <div className="col-lg-4 col-md-6">
+    <div
+      className="card border-0 shadow-lg rounded-4 p-4"
+      style={{
+        height: "180px",
+        background: "linear-gradient(135deg,#F59E0B,#F97316)",
+        color: "white",
+      }}
+    >
+      <div
+        style={{
+          width: "70px",
+          height: "70px",
+          borderRadius: "18px",
+          background: "rgba(255,255,255,.20)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <FaClock size={32} />
+      </div>
 
-            <table className="table table-hover">
+      <h1 className="fw-bold mt-3">
+        {complaints.filter(c => c.status === "Pending").length}
+      </h1>
 
-              <thead>
+      <h5>Pending</h5>
+    </div>
+  </div>
 
-                <tr>
-                  <th>Title</th>
-                  <th>Category</th>
-                  <th>Status</th>
-                  <th>Date</th>
-                  <th>Details</th>
-                </tr>
+  {/* Resolved */}
+  <div className="col-lg-4 col-md-6">
+    <div
+      className="card border-0 shadow-lg rounded-4 p-4"
+      style={{
+        height: "180px",
+        background: "linear-gradient(135deg,#10B981,#14B8A6)",
+        color: "white",
+      }}
+    >
+      <div
+        style={{
+          width: "70px",
+          height: "70px",
+          borderRadius: "18px",
+          background: "rgba(255,255,255,.20)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <FaCheckCircle size={32} />
+      </div>
 
-              </thead>
+      <h1 className="fw-bold mt-3">
+        {complaints.filter(c => c.status === "Resolved").length}
+      </h1>
 
-              <tbody>
+      <h5>Resolved</h5>
+    </div>
+  </div>
 
-                {
-                  complaints.map((item) => (
+</div>
+        {/* Complaint Table */}
 
-                    <tr key={item._id}>
+        <div
+          className="card border-0 shadow-lg"
+          style={{
+            borderRadius: "25px",
+          }}
+        >
 
-                      <td>{item.title}</td>
+          <div className="card-body p-4">
 
-                      <td>{item.category}</td>
+            <h4 className="fw-bold mb-4">
+              Complaint History
+            </h4>
 
-                      <td>
+            <div className="table-responsive">
 
-                        <span className={`badge
-                        ${item.status==="Pending"
-                        ?"bg-warning":
-                        item.status==="Resolved"
-                        ?"bg-success":
-                        "bg-primary"}
-                        `}>
-                          {item.status}
-                        </span>
+              <table className="table align-middle table-hover">
 
+                <thead className="table-primary">
+
+                  <tr>
+
+                    <th>Title</th>
+
+                    <th>Category</th>
+
+                    <th>Status</th>
+
+                    <th>Date</th>
+
+                    <th>Action</th>
+
+                  </tr>
+
+                </thead>
+
+                <tbody>
+
+                  {filteredComplaints.length === 0 ? (
+
+                    <tr>
+
+                      <td
+                        colSpan="5"
+                        className="text-center py-5"
+                      >
+                        No complaints found.
                       </td>
-
-                      <td>
-                        {new Date(item.createdAt).toLocaleDateString()}
-                      </td>
-                      <td>
-  <Link
-    to={`/complaint/${item._id}`}
-    className="btn btn-info btn-sm"
-  >
-    View Details
-  </Link>
-</td>
 
                     </tr>
 
-                  ))
-                }
+                  ) : (
 
-              </tbody>
+                    filteredComplaints.map((item) => (
 
-            </table>
+                      <tr key={item._id}>
+
+                        <td className="fw-semibold">
+                          {item.title}
+                        </td>
+
+                        <td>{item.category}</td>
+
+                        <td>
+
+                          <span
+                            className={`badge rounded-pill px-3 py-2 ${
+                              item.status === "Pending"
+                                ? "bg-warning text-dark"
+                                : item.status === "Resolved"
+                                ? "bg-success"
+                                : "bg-primary"
+                            }`}
+                          >
+                            {item.status}
+                          </span>
+
+                        </td>
+
+                        <td>
+                          {new Date(
+                            item.createdAt
+                          ).toLocaleDateString()}
+                        </td>
+
+                        <td>
+
+                          <Link
+                            to={`/complaint/${item._id}`}
+                            className="btn btn-outline-primary rounded-pill px-3"
+                          >
+                            <FaEye className="me-2" />
+                            View
+                          </Link>
+
+                        </td>
+
+                      </tr>
+
+                    ))
+
+                  )}
+
+                </tbody>
+
+              </table>
+
+            </div>
 
           </div>
 
