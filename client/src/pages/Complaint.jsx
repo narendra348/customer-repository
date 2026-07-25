@@ -15,6 +15,8 @@ import {
 } from "react-icons/fa";
 
 function Complaint() {
+  const [isOpen, setIsOpen] = useState(false);
+
   const [form, setForm] =useState({
     title:"",
     description:"",
@@ -60,17 +62,26 @@ function Complaint() {
 
   return(
     <>
-      <Sidebar/>
-      <Topbar/>
+      
+
+<Sidebar
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+/>
+
+<Topbar
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+/>
 
       <div
         className="main-content"
         style={{
-          marginLeft:"250px",
-          padding:"30px",
-          background:"#F4F7FC",
-          minHeight:"100vh",
-        }}
+  marginLeft: window.innerWidth > 768 ? "260px" : "0",
+  marginTop: "80px",
+  width: window.innerWidth > 768 ? "calc(100% - 260px)" : "100%",
+  padding: window.innerWidth > 768 ? "30px" : "15px",
+}}
       >
 
         <div className="mb-4">

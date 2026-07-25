@@ -6,7 +6,7 @@ import Topbar from "../components/Topbar";
 
 function Notification() {
   const [notifications, setNotifications] = useState([]);
-
+const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     fetchNotifications();
   }, []);
@@ -52,16 +52,23 @@ function Notification() {
 
   return (
     <>
-      <Sidebar />
-      <Topbar />
+     <Sidebar
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+/>
+
+<Topbar
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+/>
 
       <div
-        style={{
-          marginLeft: "250px",
-          padding: "30px",
-          minHeight: "100vh",
-          background: "#F4F7FC",
-        }}
+       style={{
+  marginLeft: window.innerWidth > 768 ? "260px" : "0",
+  marginTop: "80px",
+  width: window.innerWidth > 768 ? "calc(100% - 260px)" : "100%",
+  padding: window.innerWidth > 768 ? "30px" : "15px",
+}}
       >
         <h2 className="fw-bold text-primary mb-4">
           🔔 Notifications

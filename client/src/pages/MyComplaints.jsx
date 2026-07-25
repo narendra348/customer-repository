@@ -14,7 +14,7 @@ import {
 function MyComplaints() {
   const [complaints, setComplaints] = useState([]);
   const [search, setSearch] = useState("");
-
+const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     fetchComplaints();
   }, []);
@@ -44,17 +44,24 @@ function MyComplaints() {
 
   return (
     <>
-      <Sidebar />
-      <Topbar />
+      <Sidebar
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+/>
+
+<Topbar
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+/>
 
       <div
   className="main-content"
   style={{
-    marginLeft: "260px",
-    width: "calc(100% - 260px)",
-    padding: "30px",
-    minHeight: "100vh",
-  }}
+  marginLeft: window.innerWidth > 768 ? "260px" : "0",
+  marginTop: "80px",
+  width: window.innerWidth > 768 ? "calc(100% - 260px)" : "100%",
+  padding: window.innerWidth > 768 ? "30px" : "15px",
+}}
 >
 
         {/* Header */}

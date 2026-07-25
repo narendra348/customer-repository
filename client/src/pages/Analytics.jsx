@@ -33,6 +33,9 @@ function Analytics() {
 
   const [stats, setStats] = useState(null);
 
+  const [isOpen, setIsOpen] = useState(false);
+
+
   useEffect(() => {
     fetchStats();
   }, []);
@@ -127,16 +130,23 @@ if (!stats) {
 
   return (
     <>
-    <Sidebar />
-    <Topbar />
+    <Sidebar
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+/>
+
+<Topbar
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+/>
 
     <div
       style={{
-        marginLeft: "250px",
-        minHeight: "100vh",
-        background: "#F4F7FC",
-        padding: "30px",
-      }}
+  marginLeft: window.innerWidth > 768 ? "260px" : "0",
+  marginTop: "80px",
+  width: window.innerWidth > 768 ? "calc(100% - 260px)" : "100%",
+  padding: window.innerWidth > 768 ? "30px" : "15px",
+}}
     >
       <h2 className="fw-bold text-primary mb-4">
         Analytics Dashboard
