@@ -199,7 +199,8 @@ https://customer-repository.onrender.com
 
 ---
 
-# 👨‍💻 Developer
+# 👨‍💻 Developers
+
 **Tallapureddy Narendra Kumar Reddy**<br>
 **Thanneru Narasimham**<br>
 **Settipalli Akhilendra Reddy**<br>
