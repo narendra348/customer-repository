@@ -201,10 +201,9 @@ https://customer-repository.onrender.com
 
 # 👨‍💻 Developers
 
-**Tallapureddy Narendra Kumar Reddy**<br>
-**Thanneru Narasimham**<br>
-**Settipalli Akhilendra Reddy**<br>
-**Puthi Amrutha Lahari**<br>
+**Tallapureddy Narendra Kumar Reddy**
+**Thanneru Narasimham**
+**Puthi Amrutha Lahari**
 
 SmartBridge Internship Project
 
